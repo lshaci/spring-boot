@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lshaci.ownermanaged.mapper.OwnerMapper">
+	<resultMap id="BaseResultMap" type="Owner">
+		<result column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="state" property="state" />
+	</resultMap>
+	
+	<insert id="save" parameterType="Owner" useGeneratedKeys="true" keyProperty="id">
+		insert into city values (null, #{name}, #{state})
+	</insert>
+	
+	
+	<select id="findOne" parameterType="long" resultMap="BaseResultMap">
+		select * from city where id = #{id}
+	</select>
+</mapper>

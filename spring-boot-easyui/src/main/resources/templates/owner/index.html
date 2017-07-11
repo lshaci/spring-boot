@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>业主管理系统</title>
+<link rel="stylesheet" type="text/css"
+	href="/js/lib/easyui/themes/default/easyui.css" />
+<link rel="stylesheet" type="text/css"
+	href="/js/lib/easyui/themes/icon.css" />
+<script type="text/javascript" src="/js/lib/easyui/jquery.min.js"></script>
+<script type="text/javascript" src="/js/lib/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="/js/owner/index.js"></script>
+</head>
+<body class="easyui-layout">
+	<div data-options="region:'north'" style="height: 100px;">
+		<h1>龙光·君悦华庭·二期 —— 欢迎您</h1>
+	</div>
+	<div data-options="region:'west',title:'菜单栏'" style="width: 200px;">
+		<ul id="menu"></ul>
+	</div>
+	<div id="tt" class="easyui-tabs" data-options="region:'center',iconCls:'icon-reload'" style="width: 100px;">
+		<div title="Tab1" style="padding: 20px; display: none;">
+			<table id="dg"></table>
+		</div>
+		<div title="Tab2" data-options="closable:true" style="overflow: auto; padding: 20px; display: none;">tab2</div>
+		<div title="Tab3" data-options="iconCls:'icon-reload',closable:true" style="padding: 20px; display: none;">tab3</div>
+	</div>
+	<div data-options="region:'south'" style="height: 100px;"></div>
+</body>
+</html>
