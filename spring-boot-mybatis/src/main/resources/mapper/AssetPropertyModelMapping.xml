@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.rainsoft.msnew.dao.IAssetPropertyModelDao">
+
+    <!-- 根据条件查询数据 -->
+    <select id="getListByQuery" resultType="com.rainsoft.msnew.model.AssetPropertyModels"
+            parameterType="com.rainsoft.msnew.query.AssetPropertyModelQuery" resultMap="assetPropertyModelsResultMap">
+        select t1.buy_Price buyPrice,t1.model_Name modelName, t2.name
+        from
+        asset_property_models t1 join asset_property t2 on t1.propery_id=t2.id
+        <where>
+            <if test="modelName != null and modelName != ''">
+                and model_Name like '%'||#{modelName}||'%'
+            </if>
+            <if test="properyId != null and properyId != -1">
+                and propery_id like '%'||#{properyId}||'%'
+            </if>
+        </where>
+    </select>
+    
+    <resultMap id="assetPropertyModelsResultMap" type="com.rainsoft.msnew.model.view.VAssetPropertyModelEntity" >
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="brandName" property="brandName" />
+        <result column="buyPrice" property="buyPrice" />
+    </resultMap>
+
+    <!-- 根据id获取单条数据 -->
+    <select id="getById" resultType="com.rainsoft.msnew.model.AssetPropertyModels" parameterType="long" resultMap="assetPropertyModelsResultMap">
+        select t1.id,t1.buy_Price buyPrice,t1.model_Name modelName, t2.name
+        from
+        asset_property_models t1
+        join asset_property t2 on t1.propery_id=t2.id
+        where t2.id=#{id}
+    </select>
+
+    <!-- 查询数据列表 -->
+    <select id="getListById" resultType="com.rainsoft.msnew.model.view.VAssetPropertyModelEntity">
+        select t1.id,t1.buy_Price buyPrice,t1.model_Name modelName, t2.name
+        from
+        asset_property_models t1
+        join asset_property t2 on t1.propery_id=t2.id
+        where t2.id=#{id}
+    </select>
+
+    <!-- 插入数据 -->
+    <insert id="insert" parameterType="com.rainsoft.msnew.model.AssetPropertyModels" >
+        insert into asset_property_models(id,propery_id,buy_Price,model_Name) values(seq_asset_property_models.nextval,#{assetPropertyId},#{buyPrice},#{modelName})
+    </insert>
+
+    <!-- 根据id删除数据 -->
+    <delete id="deleteById" parameterType="long" >
+        delete from asset_property_models where id=#{id}
+    </delete>
+
+    <!-- 修改数据 -->
+    <update id="update" parameterType="com.rainsoft.msnew.model.AssetPropertyModels">
+        update asset_property_models set buy_Price=#{buyPrice},model_Name=#{modelName} where propery_id=#{id}
+    </update>
+
+</mapper>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>图片上传</title>
+<script type="text/javascript" th:src="@{/js/lib/jquery-3.1.0.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/index.js}"></script>
+</head>
+<body>
+	<img id="img" alt="无" th:attr="src=@{/imgs/i-select-large.png}" />
+	<br />
+	<span th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd HH:mm:ss')}"></span>
+	<input type="file" id = "file" style="display: none;" />
+	<input type="button" value="提交" id = "submit_bt" />
+</body>
+</html>
