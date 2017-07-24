@@ -29,7 +29,7 @@ public class CopyObjectUtilTest {
 		List<String> skips = new ArrayList<>();
 		skips.add("id");
 		skips.add("gender");
-		TestObj2 obj2 = CopyObjectUtil.copy(obj1, TestObj2.class, rename, extra, skips);
+		TestObj2 obj2 = CopyObjectUtil.copy(obj1, TestObj2.class, null, extra, skips);
 		System.out.println(obj2);
 		
 	}
