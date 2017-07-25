@@ -2,15 +2,19 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.lshaci</groupId>
-	<artifactId>spring-boot-activemq</artifactId>
+	<artifactId>spring-boot-quartz</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
-	<name>spring-boot-activemq</name>
-	<description>Learning spring boot activemq</description>
+	<name>spring-boot-quartz</name>
+	<description>Learning spring boot quartz</description>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
+
+		<druid.version>1.0.31</druid.version>
+		<quartz.version>2.2.3</quartz.version>
+		<spring.version>4.3.8.RELEASE</spring.version>
 	</properties>
 
 	<parent>
@@ -20,10 +24,37 @@
 	</parent>
 
 	<dependencies>
-		<!-- spring boot activemq -->
+		<!-- spring boot jdbc -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-activemq</artifactId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+		<!-- spring context support -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+		</dependency>
+		<!-- quartz -->
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
+			<version>${quartz.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz-jobs</artifactId>
+			<version>${quartz.version}</version>
+		</dependency>
+		<!-- mysql connector java -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+		<!-- data source - druid -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<version>${druid.version}</version>
 		</dependency>
 		<!-- spring boot test -->
 		<dependency>

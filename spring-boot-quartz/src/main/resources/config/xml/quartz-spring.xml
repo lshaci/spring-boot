@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans-4.0.xsd 
+      http://www.springframework.org/schema/context 
+      http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- 分布式事务配置 start -->
+
+	<!-- 配置线程池 -->
+	<bean name="executor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<property name="corePoolSize" value="15" />
+		<property name="maxPoolSize" value="25" />
+		<property name="queueCapacity" value="100" />
+	</bean>
+
+	<!-- 配置调度任务 -->
+	<bean name="quartzScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="configLocation" value="classpath:config/properties/quartz.properties" />
+		<property name="applicationContextSchedulerContextKey" value="applicationContext" />
+		<property name="jobFactory">
+			<bean class="com.lshaci.springboot.quartz.config.AutowiringSpringBeanJobFactory" />
+		</property>
+		<property name="triggers">
+			<list>
+				<ref bean="printCurrentTimeScheduler" />
+			</list>
+		</property>
+		<property name="jobDetails">
+			<list>
+				<ref bean="printCurrentTimeJobs" />
+			</list>
+		</property>
+		<property name="taskExecutor" ref="executor" />
+	</bean>
+	
+	<!-- 配置Job详情 -->
+	<bean name="printCurrentTimeJobs" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="jobClass" value="com.lshaci.springboot.quartz.job.PrintCurrentTimeJobs" />
+		<!--因为我使用了spring的注解，所以这里可以不用配置scheduler的属性 -->
+<!-- 		<property name="jobDataAsMap"> -->
+<!-- 			<map> -->
+<!-- 				<entry key="clusterQuartz" value="com.aaron.framework.clusterquartz.job.ClusterQuartz" /> -->
+<!-- 			</map> -->
+<!-- 		</property> -->
+		<property name="durability" value="true" />
+		<property name="requestsRecovery" value="false" />
+	</bean>
+
+	<!-- 配置触发时间 -->
+	<bean name="printCurrentTimeScheduler" class="com.lshaci.springboot.quartz.config.PersistableCronTriggerFactoryBean">
+		<property name="jobDetail" ref="printCurrentTimeJobs" />
+		<property name="cronExpression">
+			<value>0/10 * * * * ?</value>
+		</property>
+		<property name="timeZone">
+			<value>GMT+8:00</value>
+		</property>
+	</bean>
+
+	<!-- 分布式事务配置 end -->
+</beans>
