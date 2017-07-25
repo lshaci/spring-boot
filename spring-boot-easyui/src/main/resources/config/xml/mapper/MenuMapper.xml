@@ -12,9 +12,13 @@
 	<insert id="save" parameterType="Menu" useGeneratedKeys="true" keyProperty="id">
 		insert into menu values 
 		(
-			null, #{text}, #{iconCls}, #{checked}, #{state}, #{parentId}
+			null, #{text}, #{iconCls}, #{checked}, #{state}, #{parent.id}
 		)
 	</insert>
+	
+	<delete id="delete" parameterType="long">
+		delete from menu where id = #{id}
+	</delete>
 	
 	<select id="findOne" parameterType="long" resultMap="BaseResultMap">
 		select * from menu where id = #{id}

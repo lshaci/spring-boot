@@ -8,6 +8,8 @@ public interface MenuMapper {
 	
 	void save(Menu menu);
 	
+	void delete(Long id);
+	
 	Menu findOne(Long id);
 	
 	List<Menu> getFirstMenus();
