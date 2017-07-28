@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lshaci.schedule.mapper.ScheduleConfigMapper">
+	<resultMap id="BaseResultMap" type="ScheduleConfig">
+		<result column="task_name" property="taskName" />
+		<result column="corn" property="corn" />
+		<result column="current" property="current" />
+		<result column="next" property="next" />
+		<result column="status" property="status" />
+	</resultMap>
+	
+	<insert id="save" parameterType="ScheduleConfig" useGeneratedKeys="true" keyProperty="id">
+		insert into schedule_config values
+		(
+			#{taskName}, #{corn}, #{current}, #{next}, #{status}
+		)
+	</insert>
+	
+	<update id="update" parameterType="ScheduleConfig">
+		update schedule_config set
+			current = #{current}, next = #{next}, status = #{status}
+		where task_name = #{taskName}
+	</update>
+	
+	<update id="updateByTaskName" parameterType="ScheduleConfig">
+		update schedule_config set status = #{status} where task_name = #{taskName}
+	</update>
+	
+	<select id="selectByName" parameterType="string" resultMap="BaseResultMap">
+		select * from schedule_config where task_name = #{_parameter} for update
+	</select>
+	
+</mapper>
