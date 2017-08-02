@@ -81,8 +81,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		FastJsonHttpMessageConverter4 fastJsonHttpMessageConverter = new FastJsonHttpMessageConverter4();
 		
 		List<MediaType> supportedMediaTypes = new ArrayList<>();
+		supportedMediaTypes.add(MediaType.APPLICATION_JSON_UTF8);	// 等价于MediaType.parseMediaType("application/json;charset=UTF-8")
 		supportedMediaTypes.add(MediaType.parseMediaType("text/html;charset=UTF-8"));
-		supportedMediaTypes.add(MediaType.parseMediaType("application/json"));
 		
 		fastJsonHttpMessageConverter.setSupportedMediaTypes(supportedMediaTypes);
 		fastJsonHttpMessageConverter.setFastJsonConfig(getFastJsonConfig());
@@ -96,6 +96,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		FastJsonConfig fastJsonConfig = new FastJsonConfig();
 		
 		List<SerializerFeature> serializerFeatures = new ArrayList<>();
+		serializerFeatures.add(SerializerFeature.PrettyFormat);
 		serializerFeatures.add(SerializerFeature.WriteMapNullValue);
 		serializerFeatures.add(SerializerFeature.WriteNullStringAsEmpty);
 		
