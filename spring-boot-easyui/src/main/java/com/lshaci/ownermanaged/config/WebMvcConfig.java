@@ -40,7 +40,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		logger.debug("Add Converter, add TestInterceptor.");
+		logger.debug("Add Interceptor, add TestInterceptor.");
 		
 		registry.addInterceptor(new TestInterceptor());
 	}
