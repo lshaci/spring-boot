@@ -22,7 +22,6 @@ public class ScheduleConfigServiceImpl implements ScheduleConfigService {
 	public boolean judgeCurrentTask(TimerTask timerTask) {
 		String taskName = timerTask.value();
 		ScheduleConfig scheduleConfig = mapper.selectByName(taskName);
-		System.err.println(scheduleConfig);
 		if (scheduleConfig == null) {
 			scheduleConfig = new ScheduleConfig(taskName, 1);
 			mapper.save(scheduleConfig);
