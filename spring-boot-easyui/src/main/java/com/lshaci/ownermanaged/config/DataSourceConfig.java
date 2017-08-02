@@ -2,7 +2,6 @@ package com.lshaci.ownermanaged.config;
 
 import javax.sql.DataSource;
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,6 @@ import com.alibaba.druid.pool.DruidDataSource;
 
 @Configuration
 @EnableTransactionManagement
-@MapperScan("com.lshaci.ownermanaged.mapper")
 @PropertySource("classpath:config/properties/datasource.properties")
 public class DataSourceConfig {
 
