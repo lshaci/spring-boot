@@ -41,12 +41,32 @@ public class PageExecutor implements Executor {
 	@Override
 	public <E> List<E> query(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler,
 			CacheKey cacheKey, BoundSql boundSql) throws SQLException {
-        List<E> results = executor.query(ms, parameter, rowBounds, resultHandler, cacheKey, boundSql);
         int total = getTotal(ms, parameter);
+        correctPgCt(total);
+        List<E> results = executor.query(ms, parameter, rowBounds, resultHandler, cacheKey, boundSql);
         return new PageList<E>(PageHelper.getPgCt(), PageHelper.getPgSz(), total, results);
 	}
 	
+	/**
+	 * 修正当前页
+	 * 
+	 * @param total	总数据条数
+	 */
+	private void correctPgCt(int total) {
+		int pgSz = PageHelper.getPgSz();
+        int pgCt = PageHelper.getPgCt();
+        int end = (total + pgSz - 1) / pgSz;
+        pgCt = pgCt > end ? end : pgCt;
+        PageHelper.setPage(pgCt, pgSz);
+	}
 	
+	/**
+	 * 查询总数据条数
+	 * 
+	 * @param ms
+	 * @param parameter
+	 * @return
+	 */
 	private int getTotal(MappedStatement ms, Object parameter) {
         BoundSql bsql = ms.getBoundSql(parameter);
         String sql = bsql.getSql();
