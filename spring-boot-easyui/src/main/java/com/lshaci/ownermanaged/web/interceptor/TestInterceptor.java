@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.lshaci.ownermanaged.utils.ContextUtils;
+
 public class TestInterceptor implements HandlerInterceptor {
 	
 	private static final Logger logger = LoggerFactory.getLogger(TestInterceptor.class);
@@ -17,6 +19,7 @@ public class TestInterceptor implements HandlerInterceptor {
 			throws Exception {
 		logger.debug("请求地址：" + request.getRequestURL());
 		logger.debug("访问IP：" + request.getRemoteAddr());
+		ContextUtils.putReqAndResp(request, response);
 		return true;
 	}
 
@@ -31,7 +34,7 @@ public class TestInterceptor implements HandlerInterceptor {
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
 		// TODO Auto-generated method stub
-
+		ContextUtils.remove();
 	}
 
 }

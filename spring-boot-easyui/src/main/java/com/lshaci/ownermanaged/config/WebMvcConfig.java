@@ -14,6 +14,7 @@ import org.springframework.core.convert.support.GenericConversionService;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.bind.support.ConfigurableWebBindingInitializer;
+import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -66,7 +67,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 	
 	@Bean(name = "multipartResolver")  
     public CommonsMultipartResolver commonsMultipartResolver(){  
-        logger.info("CommonsMultipartResolver");
+        logger.info("CommonsMultipartResolver.");
         
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
         
@@ -75,6 +76,13 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         
         return multipartResolver;  
     }
+	
+	@Bean
+	public RequestContextListener requestContextListener(){
+		logger.info("RequestContextListener.");
+		
+	    return new RequestContextListener();
+	}
 	
 	private FastJsonHttpMessageConverter4 fastJsonHttpMessageConverter() {
 		logger.debug("Init fastJsonHttpMessageConverter.");
