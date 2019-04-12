@@ -1,0 +1,19 @@
+# spring
+spring:
+  # profiles
+  profiles:
+    active: local
+  # swagger
+  swagger:
+    enabled: true
+    base-package: com.lshaci.test.web.controller
+# log
+logging:
+  config: classpath:config/logback-spring.xml
+  level:
+    root: warn
+    com.lshaci.test: info
+# mybatis
+mybatis:
+  type-aliases-package: com.lshaci.test.model.domain
+  mapper-locations: classpath*:mapper/*Mapper.xml

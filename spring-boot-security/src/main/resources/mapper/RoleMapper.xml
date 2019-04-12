@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lshaci.test.mapper.RoleMapper">
+    <resultMap id="BaseResultMap" type="com.lshaci.test.model.domain.Role">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="role_name" jdbcType="VARCHAR" property="roleName"/>
+        <result column="role_name_zh" jdbcType="VARCHAR" property="roleNameZh"/>
+    </resultMap>
+
+    <select id="selectByUserId" parameterType="int" resultMap="BaseResultMap">
+        select *
+        from t_role r
+        join t_user_role ur on r.id = ur.role_id
+        where ur.user_id = #{userId}
+    </select>
+</mapper>
